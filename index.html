@@ -1,0 +1,334 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background: #f3f7ff;
+  margin: 0;
+}
+.content-wrapper {
+  max-width: 1100px;
+  margin: 38px auto 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 32px rgba(0, 80, 180, 0.10);
+  padding: 36px 36px 28px 36px;
+}
+.table-title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+.table-title-flex {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.table-title-flex h2 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #0056b3;
+  margin: 0;
+  letter-spacing: 1px;
+}
+.add-btn {
+  background: linear-gradient(90deg, #0056b3 60%, #00b4d8 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 32px;
+  font-size: 1.08rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 80, 180, 0.08);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.add-btn:hover {
+  background: linear-gradient(90deg, #00b4d8 0%, #0056b3 100%);
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 4px 16px rgba(0, 180, 216, 0.10);
+}
+.table-responsive {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0, 180, 216, 0.04);
+  overflow: hidden;
+}
+th, td {
+  padding: 14px 10px;
+  text-align: left;
+}
+th {
+  background: #e3f0fa;
+  color: #0056b3;
+  font-weight: 700;
+  font-size: 1rem;
+  border-bottom: 2px solid #b3d1f7;
+  letter-spacing: 0.5px;
+}
+tr {
+  transition: background 0.18s;
+}
+tbody tr:hover {
+  background: #eaf6ff !important;
+}
+tbody tr:nth-child(even) {
+  background: #f6fbff;
+}
+tbody tr:nth-child(odd) {
+  background: #fff;
+}
+td {
+  font-size: 0.98rem;
+  color: #222;
+  border-bottom: 1px solid #e3f0fa;
+  vertical-align: middle;
+}
+td img {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.btn-update, .btn-delete, .btn-tambah {
+  border: none;
+  border-radius: 8px;
+  padding: 6px 18px;
+  font-size: 0.97rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  margin: 0 2px;
+  outline: none;
+}
+.btn-update {
+  background: #00b4d8;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,180,216,0.08);
+}
+.btn-update:hover {
+  background: #0056b3;
+}
+.btn-delete {
+  background: #fff;
+  color: #0056b3;
+  border: 1.5px solid #0056b3;
+  box-shadow: 0 2px 8px rgba(0,86,179,0.08);
+}
+.btn-delete:hover {
+  background: #0056b3;
+  color: #fff;
+}
+.btn-tambah {
+  background: #fff;
+  color: #00b4d8;
+  border: 1.5px solid #00b4d8;
+  box-shadow: 0 2px 8px rgba(0,180,216,0.08);
+}
+.btn-tambah:hover {
+  background: #00b4d8;
+  color: #fff;
+}
+.table-title-bar .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e3f0fa;
+  border-radius: 8px;
+  padding: 6px;
+  margin-right: 6px;
+}
+#modal-detail {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 99999;
+  background: rgba(0,0,0,0.18);
+  align-items: center;
+  justify-content: center;
+}
+#modal-content {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,86,179,0.13);
+  padding: 40px 44px 32px 44px;
+  min-width: 320px;
+  max-width: 95vw;
+  position: relative;
+  animation: modalFadeIn 0.4s;
+}
+#modal-content button[onclick^="closeDetail"] {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #0056b3;
+  cursor: pointer;
+  transition: color 0.18s;
+}
+#modal-content button[onclick^="closeDetail"]:hover {
+  color: #00b4d8;
+}
+#modal-body {
+  min-width: 260px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+#modal-detail #modal-content::-webkit-scrollbar { width: 0; }
+
+/* Responsive */
+@media (max-width: 700px) {
+  .content-wrapper {
+    padding: 16px 2vw 18px 2vw;
+  }
+  table, th, td {
+    font-size: 0.93rem;
+  }
+  #modal-content {
+    padding: 18px 6vw 18px 6vw;
+    min-width: 0;
+  }
+}
+th.th-no, th.th-foto, th.th-npm, th.th-nama, th.th-prodi, th.th-spp, th.th-detail, th.th-edit, th.th-hapus {
+  text-align: center;
+}
+td.th-no, td.th-foto, td.th-npm, td.th-nama, td.th-prodi, td.th-spp, td.th-detail, td.th-edit, td.th-hapus {
+  text-align: center;
+}
+th.th-nama, td.th-nama {
+  text-align: left;
+}
+th.th-prodi, td.th-prodi {
+  text-align: center;
+}
+th.th-spp, td.th-spp {
+  text-align: center;
+}
+th.th-detail, th.th-edit, th.th-hapus {
+  min-width: 55px;
+}
+</style>
+
+<div class="content-wrapper">
+  <div class="table-title-bar">
+    <div class="table-title-flex">
+      <span class="icon">
+        <svg width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="22" rx="6" fill="#fff"/><path d="M6 11h10M11 6v10" stroke="#c20573" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <h2>Data Mahasiswa</h2>
+    </div>
+    <a href="tambah-data.php"><button class="add-btn"><svg style="vertical-align:middle;margin-right:7px;" width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="2" rx="1" fill="#fff"/><rect x="11" y="4" width="2" height="16" rx="1" fill="#fff"/></svg>Tambah Data</button></a>
+  </div>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th class="th-no" width="50">No</th>
+          <th class="th-foto" width="80">Foto</th>
+          <th class="th-npm" width="100">NPM</th>
+          <th class="th-nama" width="180">Nama Mahasiswa</th>
+          <th class="th-jk" width="90">Jenis Kelamin</th>
+          <th class="th-prodi" width="140">Program Studi</th>
+          <th class="th-spp" width="100">SPP</th>
+          <th class="th-detail" width="80">Detail</th>
+          <th class="th-edit" width="55">Edit</th>
+          <th class="th-hapus" width="55">Hapus</th>
+        </tr>
+      </thead>
+      <tbody>
+
+<?php 
+include "koneksi.php";
+
+$no=1;
+$ambildata = mysqli_query($koneksi,"SELECT * FROM mahasiswa,prodi
+WHERE mahasiswa.id_prodi = prodi.id_prodi") or die (mysqli_error($koneksi));
+
+while($tampil = mysqli_fetch_array($ambildata)) {
+  echo "<tr>";
+  echo "<td class='th-no' style='text-align:center;'><span style='font-weight:600;color:#0056b3;'>" . $no . "</span></td>";
+  $foto = !empty($tampil['foto']) ? htmlspecialchars($tampil['foto']) : 'images/default-avatar.png';
+  echo "<td class='th-foto' style='text-align:center;'><img src='" . $foto . "' alt='foto' style='width:48px;height:48px;object-fit:cover;border-radius:50%;border:2px solid #b3d1f7;'></td>";
+  echo "<td class='th-npm' style='text-align:center;'><span style='letter-spacing:1px; color:#0056b3;'>" . htmlspecialchars($tampil['npm']) . "</span></td>";
+  echo "<td class='th-nama' style='text-align:left;'><span style='font-weight:500;color:#222;'>" . htmlspecialchars($tampil['nama']) . "</span></td>";
+// Tampilkan jenis kelamin dengan label Laki-laki/Perempuan
+$jk = isset($tampil['jenis_kelamin']) ? $tampil['jenis_kelamin'] : '';
+if ($jk == 'L' || strtolower($jk) == 'laki-laki') {
+    $jk_label = 'Laki-laki';
+} else if ($jk == 'P' || strtolower($jk) == 'perempuan') {
+    $jk_label = 'Perempuan';
+} else {
+    $jk_label = '-';
+}
+echo "<td class='th-jk' style='text-align:center;'><span style='color:#c20573;font-weight:500;'>" . htmlspecialchars($jk_label) . "</span></td>";
+  echo "<td class='th-prodi' style='text-align:center;'><span style='color:#00b4d8;font-weight:500;'>" . htmlspecialchars($tampil['nama_prodi']) . "</span></td>";
+  echo "<td class='th-spp' style='text-align:center;'><span style='background:#e3f0fa;padding:4px 10px;border-radius:8px;font-weight:600;color:#0056b3;display:inline-block;'>" . htmlspecialchars($tampil['spp']) . "</span></td>";
+  echo "<td class='th-detail' style='text-align:center;'><button class='btn-tambah' onclick=\"showDetail('" . htmlspecialchars($tampil['id_mhs']) . "')\"><svg style='vertical-align:middle;margin-right:5px;' width='18' height='18' fill='none' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' stroke='#00b4d8' stroke-width='2'/><path d='M12 8v4m0 0v4m0-4h4m-4 0H8' stroke='#00b4d8' stroke-width='2' stroke-linecap='round'/></svg>Detail</button></td>";
+  echo "<td class='th-edit' style='text-align:center;'><a href='relasi-update.php?update=" . urlencode($tampil['id_mhs']) . "'><button class='btn-update' title='Edit Data'><svg style='vertical-align:middle;margin-right:5px;' width='18' height='18' fill='none' viewBox='0 0 24 24'><path d='M4 17.25V20h2.75l8.06-8.06-2.75-2.75L4 17.25z' stroke='#fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><path d='M14.74 6.04a1.5 1.5 0 1 1 2.12 2.12l-1.06 1.06-2.12-2.12 1.06-1.06z' stroke='#fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>Edit</button></a></td>";
+  echo "<td class='th-hapus' style='text-align:center;'><a href='?hapus=" . urlencode($tampil['id_mhs']) . "' onclick=\"return confirm('Yakin akan menghapus data ?');\"><button class='btn-delete' title='Hapus Data'><svg style='vertical-align:middle;margin-right:5px;' width='18' height='18' fill='none' viewBox='0 0 24 24'><rect x='5' y='7' width='14' height='12' rx='2' stroke='#0056b3' stroke-width='2'/><path d='M9 11v4M15 11v4' stroke='#0056b3' stroke-width='2' stroke-linecap='round'/><path d='M10 7V5a2 2 0 0 1 4 0v2' stroke='#0056b3' stroke-width='2'/></svg>Hapus</button></a></td>";
+  echo "</tr>";
+  $no++;
+}
+?>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="modal-detail">
+  <div id="modal-content">
+    <button onclick="closeDetail()" style="position:absolute;top:12px;right:18px;background:none;border:none;font-size:2rem;color:#0056b3;cursor:pointer;transition:color 0.18s;">&times;</button>
+    <div id="modal-body" style="min-width:260px;min-height:80px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;">
+      <!-- Content will be loaded here via JavaScript -->
+    </div>
+  </div>
+</div>
+
+<script>
+function showDetail(id) {
+  document.getElementById('modal-body').innerHTML = '<div style="text-align:center;padding:30px 0;"><svg width="48" height="48" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="#0056b3" stroke-width="5" stroke-linecap="round" stroke-dasharray="31.4 31.4" stroke-dashoffset="0"><animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite"/></circle></svg><br><span style="color:#0056b3;font-weight:600;">Memuat detail...</span></div>';
+  document.getElementById('modal-detail').style.display = 'flex';
+  fetch('detail-mahasiswa.php?id='+id)
+    .then(r=>r.text())
+    .then(html=>{
+      document.getElementById('modal-body').innerHTML = html;
+    });
+}
+function closeDetail() {
+  document.getElementById('modal-detail').style.display = 'none';
+}
+</script>
+
+<?php
+if(isset($_GET['hapus'])){
+  $id = mysqli_real_escape_string($koneksi, $_GET['hapus']);
+  mysqli_query($koneksi, "DELETE FROM mahasiswa WHERE id_mhs='$id'")
+    or die (mysqli_error($koneksi));
+  echo "<div id='loading-anim' style='position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;background:rgba(255,255,255,0.85);display:flex;flex-direction:column;align-items:center;justify-content:center;'>
+<div style='margin-bottom:18px;'>
+  <svg width='70' height='70' viewBox='0 0 50 50'><circle cx='25' cy='25' r='20' fill='none' stroke='#0056b3' stroke-width='5' stroke-linecap='round' stroke-dasharray='31.4 31.4' stroke-dashoffset='0'><animateTransform attributeName='transform' type='rotate' from='0 25 25' to='360 25 25' dur='1s' repeatCount='indefinite'/></circle></svg>
+</div>
+<div style='font-size:1.2rem;color:#0056b3;font-weight:600;'>Menghapus data...</div>
+</div>";
+  echo "<script>
+setTimeout(function(){
+  document.getElementById('loading-anim').outerHTML = `<div id=\"popup-success\" style=\"position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;background:rgba(255,255,255,0.85);display:flex;flex-direction:column;align-items:center;justify-content:center;\"><div style=\"background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.10);padding:36px 38px 28px 38px;display:flex;flex-direction:column;align-items:center;\"><svg width='60' height='60' viewBox='0 0 50 50'><circle cx='25' cy='25' r='20' fill='none' stroke='#00b4d8' stroke-width='5' stroke-linecap='round'/><polyline points='16,27 23,34 36,19' fill='none' stroke='#00b4d8' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/></svg><div style=\"font-size:1.2rem;color:#00b4d8;font-weight:600;margin-top:18px;\">Data berhasil dihapus!</div></div></div>`;
+  setTimeout(function(){window.location='data-mahasiswa-final.php';}, 1200);
+}, 1200);
+</script>";
+}
+?>
